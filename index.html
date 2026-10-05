@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}*,*::before,*::after{box-sizing:border-box}</style>
+<title>Your Pension and the Triple Lock</title>
+<meta name="description" content="A simple guide for pensioners to the planned change to the State Pension triple lock from April 2030, with a calculator in pounds per week.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap">
+<style>
+/* Layout: one calm reading column, large type, a "short answers" block up top, a worked-example tool in the middle, context and sources below */
+:root{
+  --bg:#f3f6f8;
+  --surface:#ffffff;
+  --ink:#14263a;
+  --muted:#4a5d70;
+  --line:#cfd9e2;
+  --accent:#1f5d8c;
+  --yes:#1d6b4f;
+  --yes-bg:#e3f1ea;
+  --change:#8a5a12;
+  --change-bg:#fbf0dc;
+  --display:"Literata",Georgia,"Times New Roman",serif;
+  --body:"Atkinson Hyperlegible",Verdana,Arial,sans-serif;
+  --base:20px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1a24;--surface:#162533;--ink:#e8eef3;--muted:#a8b8c6;--line:#2c3e4f;--accent:#7fb6e0;
+  --yes:#8fd3b2;--yes-bg:#15332a;--change:#f0c47a;--change-bg:#3a2c14;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1a24;--surface:#162533;--ink:#e8eef3;--muted:#a8b8c6;--line:#2c3e4f;--accent:#7fb6e0;
+  --yes:#8fd3b2;--yes-bg:#15332a;--change:#f0c47a;--change-bg:#3a2c14;color-scheme:dark}
+
+html{font-size:var(--base)}
+html.size-l{font-size:23px}
+html.size-xl{font-size:26px}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.6}
+.wrap{max-width:40rem;margin:0 auto;padding-inline:16px;padding-block:1.25rem 3rem}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:2.1rem;font-weight:700}
+h2{font-size:1.5rem;font-weight:700}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+section{display:flex;flex-direction:column;gap:1rem;padding-block:2rem;border-top:1px solid var(--line)}
+section:first-of-type{border-top:0}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
+.sizer{display:flex;gap:.4rem;align-items:center}
+.sizer button{font-family:var(--body);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:.25rem .6rem;cursor:pointer;min-height:44px;min-width:44px}
+.sizer button[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+
+.hero{display:flex;flex-direction:column;gap:1rem;padding-block:1.5rem 2rem}
+.lede{font-size:1.15rem;color:var(--ink)}
+.news{background:var(--surface);border:2px solid var(--accent);border-radius:10px;padding:1rem;display:flex;flex-direction:column;gap:.5rem}
+.news-h{font-weight:700;color:var(--accent)}
+.status{font-size:.85rem;color:var(--muted);border-left:3px solid var(--line);padding-left:.8rem}
+
+.answers{display:flex;flex-direction:column;gap:.75rem;list-style:none;margin:0;padding:0}
+.answer{display:grid;grid-template-columns:auto 1fr;gap:.9rem;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem}
+.answer > div{min-width:0;display:flex;flex-direction:column;gap:.3rem}
+.badge{font-weight:700;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;padding:.2rem .6rem;border-radius:999px;white-space:nowrap}
+.badge.yes{background:var(--yes-bg);color:var(--yes)}
+.badge.change{background:var(--change-bg);color:var(--change)}
+.q{font-weight:700}
+
+/* tool */
+.tool{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.25rem;display:flex;flex-direction:column;gap:1.1rem}
+label.lbl{font-weight:700;display:block;margin-bottom:.35rem}
+.money{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.money input{font:inherit;font-size:1.2rem;width:8rem;padding:.4rem .6rem;border:2px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-variant-numeric:tabular-nums}
+.hint{font-size:.85rem;color:var(--muted)}
+.scen{display:flex;flex-direction:column;gap:.5rem}
+.scen button{font:inherit;text-align:left;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:8px;padding:.6rem .8rem;cursor:pointer;min-height:44px}
+.scen button[aria-pressed="true"]{border-color:var(--accent);background:var(--surface)}
+.scen button strong{display:block}
+.scen button span{font-size:.85rem;color:var(--muted)}
+.story{font-size:1rem}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.col{border:1px solid var(--line);border-radius:10px;padding:.9rem;display:flex;flex-direction:column;gap:.25rem;min-width:0}
+.col.new{border-color:var(--accent);border-width:2px}
+.col .t{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.col .pct{font-family:var(--display);font-size:1.6rem;font-weight:700;font-variant-numeric:tabular-nums}
+.col .wk{font-variant-numeric:tabular-nums}
+.col .yr{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.verdict{border-radius:10px;padding:.9rem 1rem;font-size:1rem}
+.verdict.same{background:var(--yes-bg);color:var(--ink)}
+.verdict.less{background:var(--change-bg);color:var(--ink)}
+.verdict.more{background:var(--yes-bg);color:var(--ink)}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.3rem;font-size:.9rem}
+.checks li::before{content:"✓ ";color:var(--yes);font-weight:700}
+details{border-top:1px solid var(--line);padding-top:.75rem}
+summary{cursor:pointer;font-weight:700;color:var(--accent);min-height:44px;display:flex;align-items:center}
+.nums{font-size:.9rem;color:var(--muted);display:grid;grid-template-columns:1fr auto;gap:.2rem 1rem;font-variant-numeric:tabular-nums;margin-top:.5rem}
+.nums dt{margin:0}.nums dd{margin:0;text-align:right}
+
+.plain{display:flex;flex-direction:column;gap:.9rem}
+.footer{font-size:.85rem;color:var(--muted);display:flex;flex-direction:column;gap:.6rem}
+@media (max-width:480px){h1{font-size:1.75rem}.compare{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <span>A simple guide</span>
+    <div class="sizer" role="group" aria-label="Text size">
+      <span>Text size</span>
+      <button id="sz-m" data-size="" aria-pressed="true">A</button>
+      <button id="sz-l" data-size="size-l" aria-pressed="false" style="font-size:1.1em">A</button>
+      <button id="sz-xl" data-size="size-xl" aria-pressed="false" style="font-size:1.25em">A</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <h1>Your State Pension will still go up every year</h1>
+    <p class="lede">The government plans to change the triple lock from April 2030. This page shows what that could mean for you, in pounds.</p>
+    <div class="news">
+      <p class="news-h">What has been announced (updated 5 October 2026)</p>
+      <p>On 29 September, the Prime Minister, Andy Burnham, said the triple lock stays the same until the next election. Your rises in April 2027, 2028 and 2029 will follow the rule you have now.</p>
+      <p>From April 2030, he wants an "adjusted triple lock". Your pension would go up each year by prices or 2.5%, whichever is more. It would also keep up with how much pay has grown since 2030, but not jump up with pay in a single year.</p>
+      <p>On 2 October it was reported that the law for this will be passed before the next election. The change would still start in April 2030.</p>
+    </div>
+  </header>
+
+  <section aria-labelledby="pounds">
+    <h2 id="pounds">Work out the change</h2>
+    <p>Type in your pension. Then pick what is happening to prices and pay. You will see how much your pension goes up with the rule now, and how much it could go up with the new rule. These are just examples. They are not a guess about the future.</p>
+
+    <div class="tool">
+      <div>
+        <label class="lbl" for="weekly">How much State Pension do you get each week?</label>
+        <div class="money"><span aria-hidden="true">£</span><input id="weekly" type="number" inputmode="decimal" min="0" step="0.01" value="241.30"></div>
+        <p class="hint">£241.30 is the full new State Pension in 2026 to 2027. You can change it to your own amount.</p>
+      </div>
+
+      <div>
+        <p class="lbl" id="scen-lbl">What is happening this year?</p>
+        <div class="scen" role="group" aria-labelledby="scen-lbl" id="scen"></div>
+      </div>
+
+      <p class="story" id="story"></p>
+
+      <div class="compare">
+        <div class="col">
+          <span class="t">The rule now</span>
+          <span class="pct" id="tl-pct"></span>
+          <span class="wk" id="tl-wk"></span>
+          <span class="yr" id="tl-yr"></span>
+        </div>
+        <div class="col new">
+          <span class="t">New rule from 2030</span>
+          <span class="pct" id="rf-pct"></span>
+          <span class="wk" id="rf-wk"></span>
+          <span class="yr" id="rf-yr"></span>
+        </div>
+      </div>
+
+      <p class="verdict" id="verdict"></p>
+
+      <ul class="checks" id="checks"></ul>
+
+      <p class="hint">The examples are set in the late 2030s, after the new rule has run for a few years. They follow the new rule as described by the Institute for Fiscal Studies. Some details are not set yet, so real rises could be a bit different.</p>
+
+      <details>
+        <summary>See the sums</summary>
+        <dl class="nums" id="nums"></dl>
+      </details>
+    </div>
+  </section>
+
+  <section aria-labelledby="why">
+    <h2 id="why">Why change it?</h2>
+    <div class="plain">
+      <p>Right now, the State Pension goes up each year by whichever of these is biggest: how fast prices went up, how fast pay went up, or 2.5%. This is called the triple lock.</p>
+      <p>The trouble is that when prices jump, pay usually jumps a year later to catch up. So pensions go up twice for the same thing.</p>
+      <p>This happened in 2023 and 2024. Prices jumped, so pensions went up 10.1%. The next year pay caught up, so pensions went up another 8.5%.</p>
+      <p>This makes pensions cost more and more over time. In 2022 the government stopped the triple lock for a year because the numbers had gone wrong.</p>
+      <p>To be fair and clear: the government would spend less because pensions would go up a bit less in some years. It says the money would help pay for a new National Care Service.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="short">
+    <h2 id="short">Questions and answers</h2>
+    <ul class="answers">
+      <li class="answer"><span class="badge yes">No</span><div><p class="q">Will my pension change before 2030?</p><p>No. The rises in April 2027, 2028 and 2029 will follow the triple lock you have now.</p></div></li>
+      <li class="answer"><span class="badge yes">No</span><div><p class="q">Could my pension go down?</p><p>No. Under the new rule it would go up by at least 2.5% every year, even if prices fall.</p></div></li>
+      <li class="answer"><span class="badge yes">Yes</span><div><p class="q">Will it keep up with prices?</p><p>Yes, every year. It will always go up by at least as much as prices.</p></div></li>
+      <li class="answer"><span class="badge yes">Kept</span><div><p class="q">What about the 2.5% promise?</p><p>It stays. Every year, your pension would go up by at least 2.5%.</p></div></li>
+      <li class="answer"><span class="badge yes">Over time</span><div><p class="q">Will it keep up with pay?</p><p>Yes, over time. The new rule checks how much pay has grown since 2030. If pensions fall behind, they catch up. If pensions are ahead, for example after prices jump, they go up by prices or 2.5% until pay catches up.</p></div></li>
+      <li class="answer"><span class="badge change">Changes</span><div><p class="q">So could I get less?</p><p>In some years, yes. This mostly happens the year after prices jump, when pay catches up. The rule now pays out for that twice. The new rule pays out once. The Institute for Fiscal Studies says the difference would be small at first and grow over time.</p></div></li>
+      <li class="answer"><span class="badge yes">Yes</span><div><p class="q">Will pensions still beat rising prices?</p><p>Yes. The Institute for Fiscal Studies looked at what would have happened if the new rule had been used since 2010. The pension would still have grown 6% faster than prices.</p></div></li>
+      <li class="answer"><span class="badge change">Sometimes</span><div><p class="q">Could I ever get more?</p><p>In some years, yes. If pensions have fallen behind pay since 2030, the new rule helps them catch up.</p></div></li>
+      <li class="answer"><span class="badge change">Not decided</span><div><p class="q">Is everything decided?</p><p>Not yet. The law has not been passed. Some details, like which measure of pay is used, are not set yet. Details could change before 2030.</p></div></li>
+      <li class="answer"><span class="badge change">Not decided</span><div><p class="q">What does care have to do with it?</p><p>The Prime Minister wants a National Care Service, a bit like the NHS but for care. He says money saved from the pension change would help pay for it. The details are still being worked out.</p></div></li>
+      <li class="answer"><span class="badge yes">Where</span><div><p class="q">Where can I find out more?</p><p>For questions about your own pension, contact the Pension Service or visit gov.uk/state-pension. For a full explanation of the new rule, see <a href="https://ifs.org.uk/articles/how-will-new-triple-lock-work-and-what-effects-will-it-have" target="_blank" rel="noopener">How will the new triple lock work?</a> from the Institute for Fiscal Studies. For charts comparing other ideas, see <a href="https://triple-lock.britishprogress.org/solutions.html" target="_blank" rel="noopener">What are the alternatives?</a> from the Centre for British Progress.</p></div></li>
+    </ul>
+  </section>
+</div>
+
+<script>
+(function(){
+  // Text size
+  var root=document.documentElement, btns=document.querySelectorAll('.sizer button');
+  function setSize(cls){
+    root.classList.remove('size-l','size-xl'); if(cls) root.classList.add(cls);
+    btns.forEach(function(b){b.setAttribute('aria-pressed', String(b.dataset.size===cls));});
+    try{localStorage.setItem('tl-size',cls);}catch(e){}
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){setSize(b.dataset.size);});});
+  try{var s=localStorage.getItem('tl-size'); if(s!==null) setSize(s);}catch(e){}
+
+  // Scenarios: all rates in %. p10/e10 = growth in pensions / pay since the new rule began in 2030 (IFS description).
+  var S=[
+    {id:'typical',title:'A normal year',sub:'Prices and pay both go up a bit',
+     cpi:2.8,e12:4.0,p10:30,e10:34,
+     story:'Prices went up 2.8% this year. Pay went up 4%. Since 2030, pay has gone up 34% and pensions 30%. So pensions are a little behind pay.'},
+    {id:'spike',title:'Prices jump',sub:'Like in 2022, when food and energy got much dearer',
+     cpi:9.0,e12:5.0,p10:32,e10:35,
+     story:'Prices went up 9% this year. Pay went up 5%.'},
+    {id:'catchup',title:'The year after prices jump',sub:'Pay catches up with the higher prices',
+     cpi:3.0,e12:8.0,p10:42,e10:40,
+     story:'Last year, pensions went up a lot to match prices. This year pay went up 8% to catch up with those same prices. Since 2030, pensions have gone up 42% and pay 40%. So pensions are already ahead.'},
+    {id:'behind',title:'Pensions are behind pay',sub:'Pay has gone up faster since 2030',
+     cpi:2.0,e12:3.0,p10:33,e10:38,
+     story:'Prices went up 2% this year. Pay went up 3%. But since 2030, pay has gone up 38% and pensions only 33%. So pensions have fallen behind.'},
+    {id:'fall',title:'Prices fall',sub:'A rare year when things get cheaper',
+     cpi:-0.5,e12:0.5,p10:29,e10:28,
+     story:'Prices went down 0.5% this year. Pay hardly changed. Since 2030, pensions are already ahead of pay.'}
+  ];
+  var current=S[0];
+  var scenEl=document.getElementById('scen');
+  S.forEach(function(s,i){
+    var b=document.createElement('button'); b.type='button'; b.id='scen-'+s.id;
+    b.setAttribute('aria-pressed', i===0?'true':'false');
+    b.innerHTML='<strong>'+s.title+'</strong><span>'+s.sub+'</span>';
+    b.addEventListener('click',function(){current=s;
+      scenEl.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));}); render();});
+    scenEl.appendChild(b);
+  });
+
+    function calc(s){
+    var tl=Math.max(s.cpi,s.e12,2.5);
+    var target=1+s.e10/100;
+    var keep=(target/(1+s.p10/100)-1)*100;
+    var rf=Math.max(s.cpi,keep,2.5);
+    return {tl:tl,keep:keep,rf:rf,target:target};
+  }
+  function pct(x){return (x>=0?'+':'')+x.toFixed(1)+'%';}
+  function gbp(x){return '£'+x.toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function $(id){return document.getElementById(id);}
+
+  function render(){
+    var w=parseFloat($('weekly').value); if(!(w>=0)) w=0;
+    var r=calc(current), tlW=w*(1+r.tl/100), rfW=w*(1+r.rf/100);
+    $('story').textContent=current.story;
+    $('tl-pct').textContent=pct(r.tl);
+    $('rf-pct').textContent=pct(r.rf);
+    $('tl-wk').textContent=gbp(tlW)+' a week';
+    $('rf-wk').textContent=gbp(rfW)+' a week';
+    $('tl-yr').textContent=gbp(tlW*52)+' a year';
+    $('rf-yr').textContent=gbp(rfW*52)+' a year';
+    var d=rfW-tlW, v=$('verdict');
+    if(Math.abs(d)<0.005){v.className='verdict same';v.textContent='Both give the same. Your pension goes up by '+gbp(rfW-w)+' a week.';}
+    else if(d<0){v.className='verdict less';v.textContent='With the new rule, you get '+gbp(-d)+' a week less than the rule now. Your pension still goes up by '+gbp(rfW-w)+' a week.';}
+    else {v.className='verdict more';v.textContent='With the new rule, you get '+gbp(d)+' a week more than the rule now. This is because pensions catch up with pay.';}
+    var c=[];
+    c.push(r.rf>=current.cpi-1e-9?'Goes up at least as much as prices':'');
+    c.push('Goes up by at least 2.5%');
+    c.push('Keeps up with pay since 2030');
+    $('checks').innerHTML=c.filter(Boolean).map(function(t){return '<li>'+t+'</li>';}).join('');
+    var n=[
+      ['Prices this year',pct(current.cpi)],
+      ['Pay this year',pct(current.e12)],
+      ['Pay since 2030',pct(current.e10)],
+      ['Pensions since 2030',pct(current.p10)],
+      ['Catch-up needed',pct(r.keep)],
+      ['Rule now: biggest of prices, pay or 2.5%',pct(r.tl)],
+      ['New rule: biggest of prices, catch-up or 2.5%',pct(r.rf)]
+    ];
+    $('nums').innerHTML=n.map(function(x){return '<dt>'+x[0]+'</dt><dd>'+x[1]+'</dd>';}).join('');
+  }
+  $('weekly').addEventListener('input',render);
+  render();
+})();
+</script>
+</body>
+</html>
