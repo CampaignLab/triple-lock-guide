@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}*,*::before,*::after{box-sizing:border-box}</style>
+<title>The Pension Race</title>
+<meta name="description" content="A race between prices, workers' pay and the State Pension, showing how the new triple lock keeps pensions level with pay and ahead of prices.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap">
+<style>
+/* Layout: one column; an athletics track with three lanes sits at the top as the hero, commentary box under it, then plain explanations */
+:root{
+  --bg:#f3f6f8;
+  --surface:#ffffff;
+  --ink:#14263a;
+  --muted:#4a5d70;
+  --line:#cfd9e2;
+  --accent:#1f5d8c;
+  --track:#b5523b;
+  --track-lane:#c86a52;
+  --lane-line:#f6e9e2;
+  --prices:#6b4fa0;
+  --pay:#1d6b4f;
+  --pension:#1f5d8c;
+  --ahead-bg:#e3f1ea;
+  --display:"Literata",Georgia,"Times New Roman",serif;
+  --body:"Atkinson Hyperlegible",Verdana,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1a24;--surface:#162533;--ink:#e8eef3;--muted:#a8b8c6;--line:#2c3e4f;--accent:#7fb6e0;
+  --track:#6e3326;--track-lane:#7d3d2e;--lane-line:#c9a597;
+  --prices:#b9a3e6;--pay:#8fd3b2;--pension:#7fb6e0;--ahead-bg:#15332a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1a24;--surface:#162533;--ink:#e8eef3;--muted:#a8b8c6;--line:#2c3e4f;--accent:#7fb6e0;
+  --track:#6e3326;--track-lane:#7d3d2e;--lane-line:#c9a597;
+  --prices:#b9a3e6;--pay:#8fd3b2;--pension:#7fb6e0;--ahead-bg:#15332a;color-scheme:dark}
+
+html{font-size:20px}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.6}
+.wrap{max-width:46rem;margin:0 auto;padding-inline:16px;padding-block:1.25rem 3rem;display:flex;flex-direction:column;gap:1.5rem}
+h1,h2{font-family:var(--display);text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:2.1rem}
+h2{font-size:1.4rem}
+p{margin:0}
+a{color:var(--accent);text-underline-offset:3px}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.topbar{font-size:.8rem;color:var(--muted);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.lede{font-size:1.1rem}
+
+.modes{display:flex;gap:.5rem;flex-wrap:wrap}
+.modes button{font:inherit;font-weight:700;background:var(--surface);color:var(--ink);border:2px solid var(--line);border-radius:999px;padding:.4rem 1rem;cursor:pointer;min-height:44px}
+.modes button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--bg)}
+
+.stadium{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem;display:flex;flex-direction:column;gap:.9rem}
+.scoreline{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap}
+.year{font-family:var(--display);font-size:2rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+.year small{font-family:var(--body);font-size:.8rem;color:var(--muted);font-weight:400;margin-left:.4rem}
+.rulename{font-weight:700;color:var(--accent)}
+
+.track-wrap{overflow-x:auto}
+.track{position:relative;background:var(--track);border-radius:10px;padding:.4rem .5rem}
+.ticks{position:relative;height:1.3rem;margin:0 1.9rem 0 1.3rem;font-size:.7rem;color:var(--lane-line);font-variant-numeric:tabular-nums}
+.ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.lane{position:relative;height:3.6rem;border-top:2px solid var(--lane-line)}
+.lane:last-child{border-bottom:2px solid var(--lane-line)}
+.lane:nth-child(odd){background:var(--track-lane)}
+.finish{position:absolute;top:1.7rem;bottom:.4rem;right:.5rem;width:.6rem;background:repeating-linear-gradient(0deg,#fff 0 .3rem,#222 .3rem .6rem);opacity:.85;border-radius:2px}
+.runner{position:absolute;top:50%;left:calc(var(--p,0) * (100% - 3.2rem));transform:translateY(-50%);display:flex;align-items:center;gap:.35rem;transition:left .55s cubic-bezier(.4,.1,.3,1)}
+.bib{width:2.6rem;height:2.6rem;border-radius:50%;display:grid;place-items:center;font-size:1.45rem;background:var(--surface);border:3px solid var(--c);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.running .bib{animation:bob .35s ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(-2px) rotate(-4deg)}to{transform:translateY(2px) rotate(4deg)}}
+.lane-label{position:absolute;left:.4rem;top:.15rem;font-size:.7rem;font-weight:700;color:var(--lane-line);letter-spacing:.04em;text-transform:uppercase}
+.r-prices{--c:var(--prices)} .r-pay{--c:var(--pay)} .r-pension{--c:var(--pension)}
+
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+.cell{border:1px solid var(--line);border-radius:10px;padding:.6rem .7rem;display:flex;flex-direction:column;gap:.1rem;min-width:0;border-top:5px solid var(--c)}
+.cell .nm{font-size:.8rem;font-weight:700;color:var(--muted)}
+.cell .val{font-family:var(--display);font-size:1.5rem;font-weight:700;font-variant-numeric:tabular-nums}
+.cell .sub{font-size:.75rem;color:var(--muted)}
+
+.comment{background:var(--ahead-bg);border-radius:10px;padding:.8rem 1rem;font-size:1rem;min-height:4.2rem}
+.comment strong{display:block;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+.controls{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+.controls button{font:inherit;font-weight:700;border-radius:8px;padding:.45rem 1rem;cursor:pointer;min-height:44px;border:2px solid var(--accent)}
+#go{background:var(--accent);color:var(--bg)}
+#end{background:transparent;color:var(--accent)}
+.scrub{display:flex;flex-direction:column;gap:.2rem;flex:1 1 12rem;min-width:0}
+.scrub label{font-size:.8rem;color:var(--muted)}
+.scrub input{width:100%;accent-color:var(--accent)}
+.note{font-size:.8rem;color:var(--muted)}
+
+.points{display:flex;flex-direction:column;gap:.8rem}
+.point{display:grid;grid-template-columns:2.4rem 1fr;gap:.8rem;align-items:start}
+.point .bib{width:2.4rem;height:2.4rem;font-size:1.2rem}
+.point > div{min-width:0}
+.point b{display:block}
+section{display:flex;flex-direction:column;gap:.9rem;border-top:1px solid var(--line);padding-top:1.5rem}
+@media (max-width:520px){h1{font-size:1.7rem}.ticks span:nth-child(even){display:none}.board{grid-template-columns:1fr}.cell{flex-direction:row;align-items:baseline;gap:.6rem;flex-wrap:wrap}.lane-label{display:none}}
+@media (prefers-reduced-motion:reduce){.runner{transition:none}.running .bib{animation:none}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><span>A simple guide</span><a href="index.html">Work out your own pension rise</a></div>
+
+  <header style="display:flex;flex-direction:column;gap:.8rem">
+    <h1>The Pension Race</h1>
+    <p class="lede">Three runners. Prices. Workers' pay. And your State Pension. Watch who keeps up under the new triple lock from 2030.</p>
+  </header>
+
+  <div class="modes" role="group" aria-label="Which rule">
+    <button id="m-new" type="button" aria-pressed="true">New triple lock</button>
+    <button id="m-old" type="button" aria-pressed="false">Old triple lock</button>
+  </div>
+
+  <div class="stadium">
+    <div class="scoreline">
+      <div class="year" id="year" aria-live="off">2049<small id="yearsub">Finish line</small></div>
+      <span class="rulename" id="rulename">New triple lock</span>
+    </div>
+
+    <div class="track-wrap">
+      <div class="track" id="track">
+        <div class="ticks" id="ticks" aria-hidden="true"></div>
+        <div class="lane"><span class="lane-label">Prices</span><div class="runner r-prices" id="run-prices"><span class="bib" aria-hidden="true">🛒</span></div></div>
+        <div class="lane"><span class="lane-label">Workers' pay</span><div class="runner r-pay" id="run-pay"><span class="bib" aria-hidden="true">👷</span></div></div>
+        <div class="lane"><span class="lane-label">State Pension</span><div class="runner r-pension" id="run-pension"><span class="bib" aria-hidden="true">🧓</span></div></div>
+        <div class="finish" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="board">
+      <div class="cell" style="--c:var(--prices)"><span class="nm">🛒 Prices</span><span class="val" id="v-prices"></span><span class="sub">what £100 of shopping costs</span></div>
+      <div class="cell" style="--c:var(--pay)"><span class="nm">👷 Workers' pay</span><span class="val" id="v-pay"></span><span class="sub">what £100 of pay grows to</span></div>
+      <div class="cell" style="--c:var(--pension)"><span class="nm">🧓 State Pension</span><span class="val" id="v-pension"></span><span class="sub">what £100 of pension grows to</span></div>
+    </div>
+
+    <p class="comment" id="comment" aria-live="polite"><strong>Commentary</strong><span id="comment-text"></span></p>
+
+    <div class="controls">
+      <button id="go" type="button">Start the race</button>
+      <button id="end" type="button">Skip to the end</button>
+      <div class="scrub">
+        <label for="scrub">Pick a year</label>
+        <input id="scrub" type="range" min="0" max="20" step="1" value="20">
+      </div>
+    </div>
+    <p class="note">This is a made-up example over 20 years, with a jump in prices and a slow patch for pay. It is not a forecast. It shows how the rules work.</p>
+  </div>
+
+  <section aria-labelledby="what">
+    <h2 id="what">What the race shows</h2>
+    <div class="points">
+      <div class="point"><span class="bib r-prices" style="border-color:var(--prices)" aria-hidden="true">🛒</span><div><b>The pension always beats prices.</b>Every year it goes up by at least as much as prices, and at least 2.5%. So what your pension can buy keeps growing.</div></div>
+      <div class="point"><span class="bib r-pay" style="border-color:var(--pay)" aria-hidden="true">👷</span><div><b>The pension keeps level with workers' pay.</b>Under the new rule, pensions grow as much as pay has grown since 2030. If prices jump, pensions go up straight away. Then they wait for pay to catch up. If pay falls behind, pensions still go up 2.5%.</div></div>
+      <div class="point"><span class="bib r-pension" style="border-color:var(--pension)" aria-hidden="true">🧓</span><div><b>Under the old rule, pensions run off ahead of pay.</b>The old rule takes the biggest rise each year. After a jump in prices, it pays out twice: once for prices, then again when pay catches up. Over time that gets more and more costly. Try the "Old triple lock" button to see it.</div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="more">
+    <h2 id="more">Find out more</h2>
+    <p>Want to see what this means for you in pounds? <a href="index.html">Work out your own pension rise</a>.</p>
+    <p>The race follows the new rule as explained by the Institute for Fiscal Studies: <a href="https://ifs.org.uk/articles/how-will-new-triple-lock-work-and-what-effects-will-it-have" target="_blank" rel="noopener">How will the new triple lock work?</a> Your rises in April 2027, 2028 and 2029 follow the triple lock you have now. The new rule starts in April 2030. The law has not been passed yet, so details could change.</p>
+  </section>
+</div>
+
+<script>
+(function(){
+  // Illustrative 20-year path: price spike in years 5-7, pay catches up in 7, pay slump in 11-12.
+  var CPI=[2.0,2.2,2.0,1.8,6.0,9.0,4.0,2.5,2.0,2.0,1.5,0.5,1.8,2.2,2.0,2.4,2.0,3.5,2.6,2.0];
+  var PAY=[3.5,3.8,3.6,3.2,4.5,6.0,7.5,4.0,3.5,3.4,1.5,1.0,2.5,3.6,3.8,3.5,3.3,4.2,3.9,3.5];
+  var START=2030, N=CPI.length;
+
+  // Build index paths for both rules (100 = start of 2030)
+  function build(){
+    var P=[100],W=[100],O=[100],NW=[100],rN=[0],rO=[0];
+    for(var i=0;i<N;i++){
+      P.push(P[i]*(1+CPI[i]/100));
+      W.push(W[i]*(1+PAY[i]/100));
+      var ro=Math.max(CPI[i],PAY[i],2.5); O.push(O[i]*(1+ro/100)); rO.push(ro);
+      var keep=(W[i+1]/NW[i]-1)*100; var rn=Math.max(CPI[i],keep,2.5);
+      NW.push(NW[i]*(1+rn/100)); rN.push(rn);
+    }
+    return {P:P,W:W,old:O,neu:NW,rOld:rO,rNew:rN};
+  }
+  var D=build();
+  var MAX=Math.ceil(Math.max.apply(null,D.old)/25)*25; // track length
+  var mode='new', step=N, timer=null;
+
+  // Distance markers
+  var ticks=document.getElementById('ticks');
+  for(var t=100;t<=MAX;t+=25){
+    var s=document.createElement('span'); s.style.left=((t-100)/(MAX-100)*100)+'%'; s.textContent='£'+t; ticks.appendChild(s);
+  }
+
+  function $(id){return document.getElementById(id);}
+  function pen(){return mode==='new'?D.neu:D.old;}
+  function rate(i){return mode==='new'?D.rNew[i]:D.rOld[i];}
+  function money(x){return '£'+Math.round(x);}
+  function place(id,v){$(id).style.setProperty('--p',Math.max(0,Math.min(1,(v-100)/(MAX-100))));}
+
+  function commentary(k){
+    var p=pen(), i=k-1;
+    if(k===0) return 'And they’re lined up at the start of 2030. Every runner begins at £100.';
+    var gap=p[k]-D.W[k], prevGap=p[k-1]-D.W[k-1], r=rate(i).toFixed(1);
+    if(k===N){
+      var g=Math.round(p[k]-D.W[k]), pg=Math.round(p[k]-D.P[k]);
+      if(mode==='new') return 'Photo finish! The pension crosses the line level with workers’ pay, and £'+pg+' ahead of prices for every £100. Fair to both.';
+      return 'The pension wins by a distance, £'+g+' ahead of pay for every £100. That gap costs more and more each year. That is why the rule is changing.';
+    }
+    if(CPI[i]>=5) return START+i+': Prices put on a burst of speed, up '+CPI[i]+'%! The pension goes up '+r+'%, matching them stride for stride.';
+    if(mode==='new'){
+      if(gap>0.4 && PAY[i]<=2.5) return START+i+': Pay slows to a walk, up just '+PAY[i]+'%. The pension still goes up 2.5%, so it nudges in front.';
+      if(gap>0.4) return START+i+': The pension is a step ahead of pay. It goes up '+r+'%, at least prices and 2.5%, while pay catches up.';
+      if(prevGap>0.4) return START+i+': Pay has caught up! Pension and pay are side by side again. Pension up '+r+'%.';
+      return START+i+': Pension and pay run side by side, both up about '+r+'%. Prices are dropping behind.';
+    } else {
+      if(PAY[i]>CPI[i] && CPI[i-1]>=5) return START+i+': Pay catches up with last year’s price jump, and the pension gets a second boost for the same thing. Up '+r+'%!';
+      if(gap>0.4) return START+i+': The pension takes the biggest of the three again, up '+r+'%. It pulls further ahead of pay.';
+      return START+i+': Pension and pay are level for now, both up '+r+'%.';
+    }
+  }
+
+  function render(k){
+    var p=pen();
+    place('run-prices',D.P[k]); place('run-pay',D.W[k]); place('run-pension',p[k]);
+    $('v-prices').textContent=money(D.P[k]);
+    $('v-pay').textContent=money(D.W[k]);
+    $('v-pension').textContent=money(p[k]);
+    $('year').firstChild.nodeValue=String(k===0?START:START+k-1);
+    $('yearsub').textContent=k===0?'Start':(k===N?'Finish line':'Year '+k+' of '+N);
+    $('comment-text').textContent=commentary(k);
+    $('scrub').value=k;
+    $('rulename').textContent=mode==='new'?'New triple lock':'Old triple lock';
+  }
+
+  function stop(){ if(timer){clearInterval(timer);timer=null;} $('track').classList.remove('running'); $('go').textContent=step>=N?'Run it again':'Keep going'; }
+  function play(){
+    if(timer){stop();return;}
+    if(step>=N) step=0;
+    render(step);
+    $('track').classList.add('running'); $('go').textContent='Pause';
+    timer=setInterval(function(){
+      step++; render(step);
+      if(step>=N) stop();
+    },900);
+  }
+  $('go').addEventListener('click',play);
+  $('end').addEventListener('click',function(){stop(); step=N; render(step); $('go').textContent='Run it again';});
+  $('scrub').addEventListener('input',function(e){stop(); step=+e.target.value; render(step);});
+  function setMode(m){
+    mode=m;
+    $('m-new').setAttribute('aria-pressed',String(m==='new'));
+    $('m-old').setAttribute('aria-pressed',String(m==='old'));
+    stop(); step=0; render(0); play();
+  }
+  $('m-new').addEventListener('click',function(){setMode('new');});
+  $('m-old').addEventListener('click',function(){setMode('old');});
+
+  render(step);
+  $('go').textContent='Start the race';
+})();
+</script>
+</body>
+</html>
